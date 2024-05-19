@@ -1,0 +1,297 @@
+options {
+  IGNORE_CASE = true;
+  BUILD_PARSER = true;
+  STATIC = false;
+}
+
+PARSER_BEGIN(Sintaxis)
+package Analizador;
+public class Sintaxis {
+}
+PARSER_END(Sintaxis)
+
+/** Inicio del lexico **/
+
+//Tokens omitidos
+SKIP : {
+      " "
+    | "\t"
+    | "\r"
+    | "\n"
+}
+
+//Tokens de palabras reservadas
+TOKEN : {
+    < BEGIN: "begin">
+    | < END: "end">
+    | < CASE: "case">
+    | < ELSE: "else">
+    | < ELSIF: "elsif">
+    | < IF: "if">
+    | < UNLESS: "unless">
+    | < UNTIL: "until">
+    | < WHEN: "when">
+    | < WHILE: "while">
+    | < FOR: "for">
+    | < DO: "do">
+    | < NEXT: "next">
+    | < BREAK: "break">
+    | < REDO: "redo">
+    | < RETRY: "retry">
+    | < RETURN: "return">
+    | < YIELD: "yield">
+    | < RESCUE: "rescue">
+    | < ENSURE: "ensure">
+    | < IN: "in">
+    | < TRUE: "true">
+    | < FALSE: "false">
+    | < NIL: "nil">
+    | < TKAND: "and">
+    | < TKOR: "or">
+    | < TKNOT: "not">
+    | < CLASS: "class">
+    | < MODULE: "module">
+    | < DEF: "def">
+    | < SELF: "self">
+    | < SUPER: "super">
+    | < NEW: "new">
+    | < ALIAS: "alias">
+    | < DEFINED: "defined">
+    | < UNDEF: "undef">
+    | < PUBLIC: "public">
+    | < PRIVATE: "private">
+    | < PROTECTED: "protected">
+    | < INCLUDE: "include">
+    | < EXTEND: "extend">
+    | < REQUIRE: "require">
+    | < SET: "Set">
+    | < HASH: "Hash">
+    | < MATRIX: "Matrix">
+    | < THEN: "then">
+    | < PUTS: "puts">
+    | < PRINT: "print">
+    | < GETS: "gets">
+}
+
+//Tokens de operadores
+TOKEN : {
+//OPERADORES ARIMETICOS
+    < PLUS: "+" >
+    | < MINUS: "-" >
+    | < MULTIPLICATION: "*" >
+    | < DIVISION: "/" >
+    | < MODULUS: "%" >
+    | < EXPONENTIATION: "**" >
+    //OPERADORES DE COMPARASION
+    | < EQUALTO: "==" >
+    | < NOTEQUAL: "!=" >
+    | < LESSTHAN: "<" >
+    | < GREATERTHAN: ">" >
+    | < LESSTHANEQUAL: "<=" >
+    | < GREATERTHANEQUAL: ">=" >
+    | < SPACESHIP: "<=>" >
+    | < STRICTEQUAL: "===" >
+    //OPERDORES LOGICOS
+    | < OPAND: "&&" >
+    | < OPOR: "||" >
+    | < OPNOT: "!" >
+    //OPERADORES DE ASIGNACION
+    | < ADDASSIGNMENT: "+=" >
+    | < SUBASSIGNMENT: "-=" >
+    | < MULASSIGNMENT: "*=" >
+    | < DIVASSIGNMENT: "/=" >
+    | < MODASSIGNMENT: "%=" >
+    | < EXPASSIGNMENT: "**=" >
+    //OPERADORES DE BITWISE
+    | < BITWISEAND: "&" >
+    | < BITWISEOR: "|" >
+    | < BITWISEXOR: "^" >
+    | < BITWISENOT: "~" >
+    | < BITWISELEFTSHIFT: "<<" >
+    | < BITWISERIGHTSHIFT: ">>" >
+    //OPERADORES DE RANGO
+    | < INCLUSIVERANGE: ".." >
+    | < EXCLUSIVERANGE: "..." >
+    | <EQUAL: "=">
+}
+
+//Tokens de simbolos
+TOKEN : {
+    < LPARENT: "(" >
+    | < RPARENT: ")" >
+    | < LBRACKET: "[" >
+    | < RBRACKET: "]" >
+    | < LBRACE: "{" >
+    | < RBRACE: "}" >
+    | < SEMICOLON: ";" >
+    | < COLON: ":" >
+    | < COMMA: "," >
+    | < DOT: "." >
+}
+
+//Tokens de comentarios
+TOKEN : {
+    < COBEGIN: "=begin" >
+    | < COEND: "=end" >
+    | < COMMENT: "#" (~["\n"])* >
+}
+
+
+//Tokens de numeros
+TOKEN : {
+    < INTEGERS: (["0"-"9"])+>
+    | < DECIMAL: <INTEGERS> "." <INTEGERS> >
+    | < COMPLEX: (<INTEGERS> | <DECIMAL> ) ("i" | "I")>
+    | < RATIONAL: <INTEGERS> "/" <INTEGERS>>
+}
+
+//Tokens de cadenas de texto
+TOKEN : {
+     < LETTER: ["a"-"z","A"-"Z"]>
+    | < IDENTIFIER: (<LETTER>|"_")(<LETTER>|<INTEGERS>|"_")*>
+    | < STRING: "\'"(~["\'"])*"\'" | "\""(~["\""])*"\"">
+}
+/** Fin Lexico */
+
+void Analize(): {}
+{
+    (sentences())+
+}
+
+
+
+//
+//void Analizar() :{}
+//{
+//    (sentencias())+
+//}
+//
+//void sentencias(): {}
+//{
+//    <CLC>
+//    | <CLEAR>
+//    | <COMENTARIO> (<IDENTIFICADOR>)+
+//    | statement()
+//
+//}
+//
+//void statement(): {}
+//{
+//      declararVariable()
+//    | control()
+//    | impresion()
+//    | fun_cion()
+//}
+//
+//void declararVariable(): {}
+//{
+//    <IDENTIFICADOR> <ASSIGNAMENT> (operacion() | funcion()) <POINTCOMA>
+//}
+//
+//void operacion(): {}
+//{
+//    (valor() | op_parentesis()) (operando() (valor() | op_parentesis()))*
+//}
+//
+//void op_parentesis(): {}
+//{
+//    <PARENTHESISO> operacion() <PARENTHESISC>
+//}
+//
+//void valor(): {}
+//{
+//    <IDENTIFICADOR>
+//    | <NUMERO>
+//    | <DECIMAL>
+//    | <STRING>
+//    | <TRUE>
+//    | <FALSE>
+//}
+//
+//void operando(): {}
+//{
+//      <ADDITION>
+//    | <SUBSTRACTION>
+//    | <MULTIPLICATION>
+//    | <DIVITION>
+//    | <POWER>
+//    | <POWERO>
+//}
+//
+//void funcion(): {}
+//{
+//    (<INPUT> | <INLINE>) <PARENTHESISO> (parametros())* <PARENTHESISC>
+//}
+//
+//void parametros(): {}
+//{
+//      valor() (<COMA> valor())*
+//}
+//
+//void impresion(): {}
+//{
+//    (<FPRINTF> | <PRINT> | <DISP>) <PARENTHESISO> parametros() <PARENTHESISC> <POINTCOMA>
+//}
+//
+//void control(): {}
+//{
+//    forstatement()
+//    | ifstatement()
+//}
+//
+//void forstatement(): {}
+//{
+//    <FOR> valor() <ASSIGNAMENT> valor() <SELECT> valor() <SELECT> valor() statement() (<ENDFOR> | <END>)
+//}
+//
+//void ifstatement(): {}
+//{
+//    <IF> [<PARENTHESISO>] condicion() (op_logic() condicion())*  [<PARENTHESISC>] statement() [sino()](<END> | <ENDIF>)
+//}
+//
+//void sino(): {}
+//{
+//    <ELSE> statement() | <ELSEIF> [<PARENTHESISO>] condicion() (op_logic() condicion())*  [<PARENTHESISC>] statement() [sino()]
+//}
+//
+//void condicion(): {}
+//{
+//    [<PARENTHESISO>] condicionS() (op_logic() condicionS())* [<PARENTHESISC>]
+//}
+//
+//void condicionS(): {}
+//{
+//    valor() op_relation() valor()
+//}
+//
+//void op_logic(): {}
+//{
+//      <AND>
+//    | <OR>
+//    | <NOT>
+//    | <ORE>
+//    | <NOTL>
+//}
+//
+//void op_relation(): {}
+//{
+//      <NOTEQUALS>
+//    | <NOTEQUALSL>
+//    | <LESSTHAN>
+//    | <LESSOREQUALS>
+//    | <EQUALITY>
+//    | <GREATERTHAN>
+//    | <GREATEROREQUALS>
+//    | <NOT>
+//    | <NOTL>
+//}
+//
+//void fun_cion(): {}
+//{
+//    <FUNCTION> <IDENTIFICADOR> <ASSIGNAMENT> funcionparametros()
+//}
+//
+//void funcionparametros(): {}
+//{
+//    <IDENTIFICADOR> [<PARENTHESISO> parametros() <PARENTHESISC>]
+//}
