@@ -153,145 +153,141 @@ TOKEN : {
 }
 /** Fin Lexico */
 
-void Analize(): {}
+
+void parse() :{}
 {
-    (sentences())+
+    (statements())+
 }
 
+void statements(): {}
+{
+    <BEGIN> statement() <END>
+    | <CLASS> <IDENTIFIER> <END>
+    | <DEF> <IDENTIFIER> functionDefinition() <END>
+    | statement()
+}
 
+void statement(): {}
+{
+    variableDeclaration()
+    | controlStructure()
+    | outputStatement()
+    | functionCall()
+    | expression()
+}
 
-//
-//void Analizar() :{}
-//{
-//    (sentencias())+
-//}
-//
-//void sentencias(): {}
-//{
-//    <CLC>
-//    | <CLEAR>
-//    | <COMENTARIO> (<IDENTIFICADOR>)+
-//    | statement()
-//
-//}
-//
-//void statement(): {}
-//{
-//      declararVariable()
-//    | control()
-//    | impresion()
-//    | fun_cion()
-//}
-//
-//void declararVariable(): {}
-//{
-//    <IDENTIFICADOR> <ASSIGNAMENT> (operacion() | funcion()) <POINTCOMA>
-//}
-//
-//void operacion(): {}
-//{
-//    (valor() | op_parentesis()) (operando() (valor() | op_parentesis()))*
-//}
-//
-//void op_parentesis(): {}
-//{
-//    <PARENTHESISO> operacion() <PARENTHESISC>
-//}
-//
-//void valor(): {}
-//{
-//    <IDENTIFICADOR>
-//    | <NUMERO>
-//    | <DECIMAL>
-//    | <STRING>
-//    | <TRUE>
-//    | <FALSE>
-//}
-//
-//void operando(): {}
-//{
-//      <ADDITION>
-//    | <SUBSTRACTION>
-//    | <MULTIPLICATION>
-//    | <DIVITION>
-//    | <POWER>
-//    | <POWERO>
-//}
-//
-//void funcion(): {}
-//{
-//    (<INPUT> | <INLINE>) <PARENTHESISO> (parametros())* <PARENTHESISC>
-//}
-//
-//void parametros(): {}
-//{
-//      valor() (<COMA> valor())*
-//}
-//
-//void impresion(): {}
-//{
-//    (<FPRINTF> | <PRINT> | <DISP>) <PARENTHESISO> parametros() <PARENTHESISC> <POINTCOMA>
-//}
-//
-//void control(): {}
-//{
-//    forstatement()
-//    | ifstatement()
-//}
-//
-//void forstatement(): {}
-//{
-//    <FOR> valor() <ASSIGNAMENT> valor() <SELECT> valor() <SELECT> valor() statement() (<ENDFOR> | <END>)
-//}
-//
-//void ifstatement(): {}
-//{
-//    <IF> [<PARENTHESISO>] condicion() (op_logic() condicion())*  [<PARENTHESISC>] statement() [sino()](<END> | <ENDIF>)
-//}
-//
-//void sino(): {}
-//{
-//    <ELSE> statement() | <ELSEIF> [<PARENTHESISO>] condicion() (op_logic() condicion())*  [<PARENTHESISC>] statement() [sino()]
-//}
-//
-//void condicion(): {}
-//{
-//    [<PARENTHESISO>] condicionS() (op_logic() condicionS())* [<PARENTHESISC>]
-//}
-//
-//void condicionS(): {}
-//{
-//    valor() op_relation() valor()
-//}
-//
-//void op_logic(): {}
-//{
-//      <AND>
-//    | <OR>
-//    | <NOT>
-//    | <ORE>
-//    | <NOTL>
-//}
-//
-//void op_relation(): {}
-//{
-//      <NOTEQUALS>
-//    | <NOTEQUALSL>
-//    | <LESSTHAN>
-//    | <LESSOREQUALS>
-//    | <EQUALITY>
-//    | <GREATERTHAN>
-//    | <GREATEROREQUALS>
-//    | <NOT>
-//    | <NOTL>
-//}
-//
-//void fun_cion(): {}
-//{
-//    <FUNCTION> <IDENTIFICADOR> <ASSIGNAMENT> funcionparametros()
-//}
-//
-//void funcionparametros(): {}
-//{
-//    <IDENTIFICADOR> [<PARENTHESISO> parametros() <PARENTHESISC>]
-//}
+void variableDeclaration(): {}
+{
+    <IDENTIFIER> <EQUAL> (operation() | functionCall()) <SEMICOLON>
+}
+
+void operation(): {}
+{
+    (value() | parenthesesOperation()) (operator() (value() | parenthesesOperation()))*
+}
+
+void parenthesesOperation(): {}
+{
+    <LPARENT> operation() <RPARENT>
+}
+
+void value(): {}
+{
+    <IDENTIFIER>
+    | <INTEGERS>
+    | <DECIMAL>
+    | <STRING>
+    | <TRUE>
+    | <FALSE>
+    | <NIL>
+}
+
+void operator(): {}
+{
+    <PLUS>
+    | <MINUS>
+    | <MULTIPLICATION>
+    | <DIVISION>
+    | <MODULUS>
+    | <EXPONENTIATION>
+}
+
+void functionCall(): {}
+{
+    <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
+}
+
+void parameters(): {}
+{
+    value() (<COMMA> value())*
+}
+
+void outputStatement(): {}
+{
+    (<PUTS> | <PRINT>) <LPARENT> parameters() <RPARENT> <SEMICOLON>
+}
+
+void controlStructure(): {}
+{
+    ifStatement()
+    | forStatement()
+    | whileStatement()
+    | caseStatement()
+}
+
+void ifStatement(): {}
+{
+    <IF> condition() statement() [elseClause()] <END>
+}
+
+void elseClause(): {}
+{
+    <ELSE> statement()
+    | <ELSIF> condition() statement() [elseClause()]
+}
+
+void forStatement(): {}
+{
+    <FOR> <IDENTIFIER> <IN> range() <DO> statement() <END>
+}
+
+void whileStatement(): {}
+{
+    <WHILE> condition() <DO> statement() <END>
+}
+
+void caseStatement(): {}
+{
+    <CASE> value() (<WHEN> value() statement())+ [<ELSE> statement()] <END>
+}
+
+void condition(): {}
+{
+    (value() | parenthesesOperation()) relationalOperator() (value() | parenthesesOperation())
+}
+
+void relationalOperator(): {}
+{
+    <EQUALTO>
+    | <NOTEQUAL>
+    | <LESSTHAN>
+    | <GREATERTHAN>
+    | <LESSTHANEQUAL>
+    | <GREATERTHANEQUAL>
+}
+
+void expression(): {}
+{
+    <IDENTIFIER> <DOT> <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
+}
+
+void functionDefinition(): {}
+{
+    <LPARENT> (parameters())? <RPARENT> statement() <END>
+}
+
+void range(): {}
+{
+    value() <INCLUSIVERANGE> value()
+    | value() <EXCLUSIVERANGE> value()
+}
