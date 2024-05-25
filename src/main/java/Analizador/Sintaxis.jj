@@ -156,7 +156,7 @@ TOKEN : {
 
 void parse() :{}
 {
-    (statements())+
+    (statements())*
 }
 
 void statements(): {}
@@ -178,7 +178,8 @@ void statement(): {}
 
 void variableDeclaration(): {}
 {
-    <IDENTIFIER> <EQUAL> (operation() | functionCall()) <SEMICOLON>
+    <IDENTIFIER> <EQUAL> (operation() | functionCall())
+    [ <SEMICOLON> ]
 }
 
 void operation(): {}
@@ -215,6 +216,7 @@ void operator(): {}
 void functionCall(): {}
 {
     <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
+    [ <SEMICOLON> ]
 }
 
 void parameters(): {}
@@ -224,7 +226,8 @@ void parameters(): {}
 
 void outputStatement(): {}
 {
-    (<PUTS> | <PRINT>) <LPARENT> parameters() <RPARENT> <SEMICOLON>
+    (<PUTS> | <PRINT>) <LPARENT> parameters() <RPARENT>
+    [ <SEMICOLON> ]
 }
 
 void controlStructure(): {}
@@ -279,6 +282,7 @@ void relationalOperator(): {}
 void expression(): {}
 {
     <IDENTIFIER> <DOT> <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
+    [ <SEMICOLON> ]
 }
 
 void functionDefinition(): {}
