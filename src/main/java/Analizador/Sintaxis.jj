@@ -1,13 +1,13 @@
 options {
   IGNORE_CASE = true;
-  BUILD_PARSER = true;
   STATIC = false;
+  BUILD_PARSER = true;
+  LOOKAHEAD = 2;
 }
 
 PARSER_BEGIN(Sintaxis)
 package Analizador;
-public class Sintaxis {
-}
+public class Sintaxis {}
 PARSER_END(Sintaxis)
 
 /** Inicio del lexico **/
@@ -22,174 +22,152 @@ SKIP : {
 
 //Tokens de palabras reservadas
 TOKEN : {
-    < BEGIN: "begin">
-    | < END: "end">
-    | < CASE: "case">
-    | < ELSE: "else">
-    | < ELSIF: "elsif">
-    | < IF: "if">
-    | < UNLESS: "unless">
-    | < UNTIL: "until">
-    | < WHEN: "when">
-    | < WHILE: "while">
-    | < FOR: "for">
-    | < DO: "do">
-    | < NEXT: "next">
-    | < BREAK: "break">
-    | < REDO: "redo">
-    | < RETRY: "retry">
-    | < RETURN: "return">
-    | < YIELD: "yield">
-    | < RESCUE: "rescue">
-    | < ENSURE: "ensure">
-    | < IN: "in">
-    | < TRUE: "true">
-    | < FALSE: "false">
-    | < NIL: "nil">
-    | < TKAND: "and">
-    | < TKOR: "or">
-    | < TKNOT: "not">
-    | < CLASS: "class">
-    | < MODULE: "module">
-    | < DEF: "def">
-    | < SELF: "self">
-    | < SUPER: "super">
-    | < NEW: "new">
-    | < ALIAS: "alias">
-    | < DEFINED: "defined">
-    | < UNDEF: "undef">
-    | < PUBLIC: "public">
-    | < PRIVATE: "private">
-    | < PROTECTED: "protected">
-    | < INCLUDE: "include">
-    | < EXTEND: "extend">
-    | < REQUIRE: "require">
-    | < SET: "Set">
-    | < HASH: "Hash">
-    | < MATRIX: "Matrix">
-    | < THEN: "then">
-    | < PUTS: "puts">
-    | < PRINT: "print">
-    | < GETS: "gets">
+    < BEGIN: "begin"> {System.out.println("BEGIN -> " + image + "\n");}
+    | < END: "end"> {System.out.println("END -> " + image + "\n");}
+    | < CASE: "case"> {System.out.println("CASE -> " + image + "\n");}
+    | < ELSE: "else"> {System.out.println("ELSE -> " + image + "\n");}
+    | < ELSIF: "elsif"> {System.out.println("ELSIF -> " + image + "\n");}
+    | < IF: "if"> {System.out.println("IF -> " + image + "\n");}
+    | < UNLESS: "unless"> {System.out.println("UNLESS -> " + image + "\n");}
+    | < UNTIL: "until"> {System.out.println("UNTIL -> " + image + "\n");}
+    | < WHEN: "when"> {System.out.println("WHEN -> " + image + "\n");}
+    | < WHILE: "while"> {System.out.println("WHILE -> " + image + "\n");}
+    | < FOR: "for"> {System.out.println("FOR -> " + image + "\n");}
+    | < DO: "do"> {System.out.println("DO -> " + image + "\n");}
+    | < NEXT: "next"> {System.out.println("NEXT -> " + image + "\n");}
+    | < BREAK: "break"> {System.out.println("BREAK -> " + image + "\n");}
+    | < REDO: "redo"> {System.out.println("REDO -> " + image + "\n");}
+    | < RETRY: "retry"> {System.out.println("RETRY -> " + image + "\n");}
+    | < RETURN: "return"> {System.out.println("RETURN -> " + image + "\n");}
+    | < YIELD: "yield"> {System.out.println("YIELD -> " + image + "\n");}
+    | < RESCUE: "rescue"> {System.out.println("RESCUE -> " + image + "\n");}
+    | < ENSURE: "ensure"> {System.out.println("ENSURE -> " + image + "\n");}
+    | < IN: "in"> {System.out.println("IN -> " + image + "\n");}
+    | < TRUE: "true"> {System.out.println("TRUE -> " + image + "\n");}
+    | < FALSE: "false"> {System.out.println("FALSE -> " + image + "\n");}
+    | < NIL: "nil"> {System.out.println("NIL -> " + image + "\n");}
+    | < TKAND: "and"> {System.out.println("AND -> " + image + "\n");}
+    | < TKOR: "or"> {System.out.println("OR -> " + image + "\n");}
+    | < TKNOT: "not"> {System.out.println("NOT -> " + image + "\n");}
+    | < CLASS: "class"> {System.out.println("CLASS -> " + image + "\n");}
+    | < MODULE: "module"> {System.out.println("MODULE -> " + image + "\n");}
+    | < DEF: "def"> {System.out.println("DEF -> " + image + "\n");}
+    | < SELF: "self"> {System.out.println("SELF -> " + image + "\n");}
+    | < SUPER: "super"> {System.out.println("SUPER -> " + image + "\n");}
+    | < NEW: "new"> {System.out.println("NEW -> " + image + "\n");}
+    | < ALIAS: "alias"> {System.out.println("ALIAS -> " + image + "\n");}
+    | < DEFINED: "defined"> {System.out.println("DEFINED -> " + image + "\n");}
+    | < UNDEF: "undef"> {System.out.println("UNDEF -> " + image + "\n");}
+    | < PUBLIC: "public"> {System.out.println("PUBLIC -> " + image + "\n");}
+    | < PRIVATE: "private"> {System.out.println("PRIVATE -> " + image + "\n");}
+    | < PROTECTED: "protected"> {System.out.println("PROTECTED -> " + image + "\n");}
+    | < INCLUDE: "include"> {System.out.println("INCLUDE -> " + image + "\n");}
+    | < EXTEND: "extend"> {System.out.println("EXTEND -> " + image + "\n");}
+    | < REQUIRE: "require"> {System.out.println("REQUIRE -> " + image + "\n");}
+    | < SET: "Set"> {System.out.println("SET -> " + image + "\n");}
+    | < HASH: "Hash"> {System.out.println("HASH -> " + image + "\n");}
+    | < MATRIX: "Matrix"> {System.out.println("MATRIX -> " + image + "\n");}
+    | < THEN: "then"> {System.out.println("THEN -> " + image + "\n");}
+    | < PUTS: "puts"> {System.out.println("PUTS -> " + image + "\n");}
+    | < PRINT: "print"> {System.out.println("PRINT -> " + image + "\n");}
+    | < GETS: "gets"> {System.out.println("GETS -> " + image + "\n");}
 }
 
 //Tokens de operadores
 TOKEN : {
 //OPERADORES ARIMETICOS
-    < PLUS: "+" >
-    | < MINUS: "-" >
-    | < MULTIPLICATION: "*" >
-    | < DIVISION: "/" >
-    | < MODULUS: "%" >
-    | < EXPONENTIATION: "**" >
-    //OPERADORES DE COMPARASION
-    | < EQUALTO: "==" >
-    | < NOTEQUAL: "!=" >
-    | < LESSTHAN: "<" >
-    | < GREATERTHAN: ">" >
-    | < LESSTHANEQUAL: "<=" >
-    | < GREATERTHANEQUAL: ">=" >
-    | < SPACESHIP: "<=>" >
-    | < STRICTEQUAL: "===" >
+    < PLUS: "+" > {System.out.println("PLUS -> " + image + "\n");}
+    | < MINUS: "-" > {System.out.println("MINUS -> " + image + "\n");}
+    | < MULTIPLICATION: "*" > {System.out.println("MULTIPLICATION -> " + image + "\n");}
+    | < DIVISION: "/" > {System.out.println("DIVISION -> " + image + "\n");}
+    | < MODULUS: "%" > {System.out.println("MODULUS -> " + image + "\n");}
+    | < EXPONENTIATION: "**" > {System.out.println("EXPONENTIATION -> " + image + "\n");}
+    //OPERADORES DE COMPARACION
+    | < EQUALTO: "==" > {System.out.println("EQUALTO -> " + image + "\n");}
+    | < NOTEQUAL: "!=" > {System.out.println("NOTEQUAL -> " + image + "\n");}
+    | < LESSTHAN: "<" > {System.out.println("LESSTHAN -> " + image + "\n");}
+    | < GREATERTHAN: ">" > {System.out.println("GREATERTHAN -> " + image + "\n");}
+    | < LESSTHANEQUAL: "<=" > {System.out.println("LESSTHANEQUAL -> " + image + "\n");}
+    | < GREATERTHANEQUAL: ">=" > {System.out.println("GREATERTHANEQUAL -> " + image + "\n");}
+    | < SPACESHIP: "<=>" > {System.out.println("SPACESHIP -> " + image + "\n");}
+    | < STRICTEQUAL: "===" > {System.out.println("STRICTEQUAL -> " + image + "\n");}
     //OPERDORES LOGICOS
-    | < OPAND: "&&" >
-    | < OPOR: "||" >
-    | < OPNOT: "!" >
+    | < OPAND: "&&" > {System.out.println("OPAND -> " + image + "\n");}
+    | < OPOR: "||" > {System.out.println("OPOR -> " + image + "\n");}
+    | < OPNOT: "!" > {System.out.println("OPNOT -> " + image + "\n");}
     //OPERADORES DE ASIGNACION
-    | < ADDASSIGNMENT: "+=" >
-    | < SUBASSIGNMENT: "-=" >
-    | < MULASSIGNMENT: "*=" >
-    | < DIVASSIGNMENT: "/=" >
-    | < MODASSIGNMENT: "%=" >
-    | < EXPASSIGNMENT: "**=" >
+    | < ADDASSIGNMENT: "+=" > {System.out.println("ADDASSIGNMENT -> " + image + "\n");}
+    | < SUBASSIGNMENT: "-=" > {System.out.println("SUBASSIGNMENT -> " + image + "\n");}
+    | < MULASSIGNMENT: "*=" > {System.out.println("MULASSIGNMENT -> " + image + "\n");}
+    | < DIVASSIGNMENT: "/=" > {System.out.println("DIVASSIGNMENT -> " + image + "\n");}
+    | < MODASSIGNMENT: "%=" > {System.out.println("MODASSIGNMENT -> " + image + "\n");}
+    | < EXPASSIGNMENT: "**=" > {System.out.println("EXPASSIGNMENT -> " + image + "\n");}
     //OPERADORES DE BITWISE
-    | < BITWISEAND: "&" >
-    | < BITWISEOR: "|" >
-    | < BITWISEXOR: "^" >
-    | < BITWISENOT: "~" >
-    | < BITWISELEFTSHIFT: "<<" >
-    | < BITWISERIGHTSHIFT: ">>" >
+    | < BITWISEAND: "&" > {System.out.println("BITWISEAND -> " + image + "\n");}
+    | < BITWISEOR: "|" > {System.out.println("BITWISEOR -> " + image + "\n");}
+    | < BITWISEXOR: "^" > {System.out.println("BITWISEXOR -> " + image + "\n");}
+    | < BITWISENOT: "~" > {System.out.println("BITWISENOT -> " + image + "\n");}
+    | < BITWISELEFTSHIFT: "<<" > {System.out.println("BITWISELEFTSHIFT -> " + image + "\n");}
+    | < BITWISERIGHTSHIFT: ">>" > {System.out.println("BITWISERIGHTSHIFT -> " + image + "\n");}
     //OPERADORES DE RANGO
-    | < INCLUSIVERANGE: ".." >
-    | < EXCLUSIVERANGE: "..." >
-    | <EQUAL: "=">
+    | < INCLUSIVERANGE: ".." > {System.out.println("INCLUSIVERANGE -> " + image + "\n");}
+    | < EXCLUSIVERANGE: "..." > {System.out.println("EXCLUSIVERANGE -> " + image + "\n");}
+    | <EQUAL: "="> {System.out.println("EQUAL -> " + image + "\n");}
 }
 
 //Tokens de simbolos
 TOKEN : {
-    < LPARENT: "(" >
-    | < RPARENT: ")" >
-    | < LBRACKET: "[" >
-    | < RBRACKET: "]" >
-    | < LBRACE: "{" >
-    | < RBRACE: "}" >
-    | < SEMICOLON: ";" >
-    | < COLON: ":" >
-    | < COMMA: "," >
-    | < DOT: "." >
+    < LPARENT: "(" > {System.out.println("LPARENT -> " + image + "\n");}
+    | < RPARENT: ")" > {System.out.println("RPARENT -> " + image + "\n");}
+    | < LBRACKET: "[" > {System.out.println("LBRACKET -> " + image + "\n");}
+    | < RBRACKET: "]" > {System.out.println("RBRACKET -> " + image + "\n");}
+    | < LBRACE: "{" > {System.out.println("LBRACE -> " + image + "\n");}
+    | < RBRACE: "}" > {System.out.println("RBRACE -> " + image + "\n");}
+    | < COLON: ":" > {System.out.println("COLON -> " + image + "\n");}
+    | < COMMA: "," > {System.out.println("COMMA -> " + image + "\n");}
+    | < DOT: "." > {System.out.println("DOT -> " + image + "\n");}
 }
 
 //Tokens de comentarios
 TOKEN : {
-    < COBEGIN: "=begin" >
-    | < COEND: "=end" >
-    | < COMMENT: "#" (~["\n"])* >
+    < COMMENT: "#" (~["\n"])* > {System.out.println("COMMENT -> " + image + "\n");}
 }
 
 
 //Tokens de numeros
 TOKEN : {
-    < INTEGERS: (["0"-"9"])+>
-    | < DECIMAL: <INTEGERS> "." <INTEGERS> >
-    | < COMPLEX: (<INTEGERS> | <DECIMAL> ) ("i" | "I")>
-    | < RATIONAL: <INTEGERS> "/" <INTEGERS>>
+    < INTEGERS: (["0"-"9"])+> {System.out.println("INTEGERS -> " + image + "\n");}
+    | < DECIMAL: <INTEGERS> "." <INTEGERS> > {System.out.println("DECIMAL -> " + image + "\n");}
+    | < COMPLEX: (<INTEGERS> | <DECIMAL> ) ("i" | "I")> {System.out.println("COMPLEX -> " + image + "\n");}
+    | < RATIONAL: <INTEGERS> "/" <INTEGERS>> {System.out.println("RATIONAL -> " + image + "\n");}
 }
 
 //Tokens de cadenas de texto
 TOKEN : {
-     < LETTER: ["a"-"z","A"-"Z"]>
-    | < IDENTIFIER: (<LETTER>|"_")(<LETTER>|<INTEGERS>|"_")*>
-    | < STRING: "\'"(~["\'"])*"\'" | "\""(~["\""])*"\"">
+    < IDENTIFIER: (["a"-"z"] | ["A"-"Z"] | "_") (["a"-"z"] | ["A"-"Z"] | ["0"-"9"] | "_")* > {System.out.println("IDENTIFIER -> " + image + "\n");}
+    | < STRING: "\'"(~["\'"])*"\'" | "\""(~["\""])*"\""> {System.out.println("STRING -> " + image + "\n");}
 }
 /** Fin Lexico */
 
 
-void parse() :{}
+void parse(): {}
 {
-    (statements())*
-}
-
-void statements(): {}
-{
-    <BEGIN> statement() <END>
-    | <CLASS> <IDENTIFIER> <END>
-    | <DEF> <IDENTIFIER> functionDefinition() <END>
-    | statement()
+    (statement())+
+    | <BEGIN> (statement())+ <END>
 }
 
 void statement(): {}
 {
     variableDeclaration()
+    | functionDeclaration()
     | controlStructure()
     | outputStatement()
-    | functionCall()
-    | expression()
+    | <COMMENT>
 }
 
 void variableDeclaration(): {}
 {
-    <IDENTIFIER> <EQUAL> (operation() | functionCall())
-    [ <SEMICOLON> ]
-}
-
-void operation(): {}
-{
-    (value() | parenthesesOperation()) (operator() (value() | parenthesesOperation()))*
-}
-
-void parenthesesOperation(): {}
-{
-    <LPARENT> operation() <RPARENT>
+    <IDENTIFIER> <EQUAL>  (operation() | functionCall())
 }
 
 void value(): {}
@@ -201,6 +179,16 @@ void value(): {}
     | <TRUE>
     | <FALSE>
     | <NIL>
+}
+
+void operation(): {}
+{
+    (value() | parenthesesOperation()) (operator() (value() | parenthesesOperation()))*
+}
+
+void parenthesesOperation(): {}
+{
+    <LPARENT> operation() <RPARENT>
 }
 
 void operator(): {}
@@ -216,7 +204,6 @@ void operator(): {}
 void functionCall(): {}
 {
     <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
-    [ <SEMICOLON> ]
 }
 
 void parameters(): {}
@@ -224,10 +211,9 @@ void parameters(): {}
     value() (<COMMA> value())*
 }
 
-void outputStatement(): {}
+void functionDeclaration(): {}
 {
-    (<PUTS> | <PRINT>) <LPARENT> parameters() <RPARENT>
-    [ <SEMICOLON> ]
+    <DEF> <IDENTIFIER> <LPARENT> (parameters())? <RPARENT> (statement())+ (<RETURN> value())? <END>
 }
 
 void controlStructure(): {}
@@ -240,33 +226,12 @@ void controlStructure(): {}
 
 void ifStatement(): {}
 {
-    <IF> condition() statement() [elseClause()] <END>
-}
-
-void elseClause(): {}
-{
-    <ELSE> statement()
-    | <ELSIF> condition() statement() [elseClause()]
-}
-
-void forStatement(): {}
-{
-    <FOR> <IDENTIFIER> <IN> range() <DO> statement() <END>
-}
-
-void whileStatement(): {}
-{
-    <WHILE> condition() <DO> statement() <END>
-}
-
-void caseStatement(): {}
-{
-    <CASE> value() (<WHEN> value() statement())+ [<ELSE> statement()] <END>
+    <IF> condition() (statement())+ [elseClause()]
 }
 
 void condition(): {}
 {
-    (value() | parenthesesOperation()) relationalOperator() (value() | parenthesesOperation())
+    (<OPNOT>)? value()  (relationalOperator() value() [logicalOperator() condition()])?
 }
 
 void relationalOperator(): {}
@@ -279,19 +244,41 @@ void relationalOperator(): {}
     | <GREATERTHANEQUAL>
 }
 
-void expression(): {}
+void logicalOperator(): {}
 {
-    <IDENTIFIER> <DOT> <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
-    [ <SEMICOLON> ]
+    <OPAND>
+    | <OPOR>
+    | <OPNOT>
 }
 
-void functionDefinition(): {}
+void elseClause(): {}
 {
-    <LPARENT> (parameters())? <RPARENT> statement() <END>
+    <ELSE> (statement())+
+    | <ELSIF> condition() (statement())+ [elseClause()]
+}
+
+void forStatement(): {}
+{
+    <FOR> <IDENTIFIER> (<COMMA> <IDENTIFIER>)* <IN> (<IDENTIFIER> | <INTEGERS>) (range() <INTEGERS>)? (<DO>)? (statement())+ <END>
 }
 
 void range(): {}
 {
-    value() <INCLUSIVERANGE> value()
-    | value() <EXCLUSIVERANGE> value()
+    <INCLUSIVERANGE>
+    | <EXCLUSIVERANGE>
+}
+
+void whileStatement(): {}
+{
+    <WHILE> condition() (<DO>)? (statement())+ <END>
+}
+
+void caseStatement(): {}
+{
+    <CASE> <IDENTIFIER> (<WHEN> value() (statement())+)+ [<ELSE> (statement())+] <END>
+}
+
+void outputStatement(): {}
+{
+    (<PUTS> | <PRINT>) <STRING>
 }
