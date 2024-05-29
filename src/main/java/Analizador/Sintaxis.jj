@@ -180,6 +180,7 @@ void allValues(): {}
     | <TRUE>
     | <FALSE>
     | <NIL>
+    | <LBRACKET> (allValues() (<COMMA> allValues())*)? <RBRACKET>
 }
 
 void operation(): {}
