@@ -18,6 +18,7 @@ SKIP : {
     | "\t"
     | "\r"
     | "\n"
+    | < "#" (~["\n"])*>
 }
 
 //Tokens de palabras reservadas
@@ -128,12 +129,6 @@ TOKEN : {
     | < DOT: "." > {System.out.println("DOT -> " + image + "\n");}
 }
 
-//Tokens de comentarios
-TOKEN : {
-    < COMMENT: "#" (~["\n"])* > {System.out.println("COMMENT -> " + image + "\n");}
-}
-
-
 //Tokens de numeros
 TOKEN : {
     < INTEGERS: (["0"-"9"])+> {System.out.println("INTEGERS -> " + image + "\n");}
@@ -158,23 +153,29 @@ void parse(): {}
 
 void statement(): {}
 {
-    variableDeclaration()
+     variableDeclaration()
+    | libraryUses()
     | functionDeclaration()
     | controlStructure()
     | outputStatement()
-    | <COMMENT>
+    | libraryDeclaration()
+    | operation()
 }
+
+
 
 void variableDeclaration(): {}
 {
-    <IDENTIFIER> <EQUAL>  (operation() | functionCall())
+    <IDENTIFIER> <EQUAL> (operation() | allValues() | functionCall())
 }
 
-void value(): {}
+void allValues(): {}
 {
     <IDENTIFIER>
     | <INTEGERS>
     | <DECIMAL>
+    | <COMPLEX>
+    | <RATIONAL>
     | <STRING>
     | <TRUE>
     | <FALSE>
@@ -183,7 +184,16 @@ void value(): {}
 
 void operation(): {}
 {
-    (value() | parenthesesOperation()) (operator() (value() | parenthesesOperation()))*
+    (numValues() | parenthesesOperation()) (operator() (numValues() | parenthesesOperation()))*
+}
+
+void numValues(): {}
+{
+    <IDENTIFIER>
+    | <INTEGERS>
+    | <DECIMAL>
+    | <COMPLEX>
+    | <RATIONAL>
 }
 
 void parenthesesOperation(): {}
@@ -201,6 +211,7 @@ void operator(): {}
     | <EXPONENTIATION>
 }
 
+
 void functionCall(): {}
 {
     <IDENTIFIER> <LPARENT> (parameters())? <RPARENT>
@@ -208,12 +219,12 @@ void functionCall(): {}
 
 void parameters(): {}
 {
-    value() (<COMMA> value())*
+    numValues() (<COMMA> numValues())*
 }
 
 void functionDeclaration(): {}
 {
-    <DEF> <IDENTIFIER> <LPARENT> (parameters())? <RPARENT> (statement())+ (<RETURN> value())? <END>
+    <DEF> <IDENTIFIER> <LPARENT> (parameters())? <RPARENT> (statement())+ ((<RETURN>)? allValues())? <END>
 }
 
 void controlStructure(): {}
@@ -226,12 +237,12 @@ void controlStructure(): {}
 
 void ifStatement(): {}
 {
-    <IF> condition() (statement())+ [elseClause()]
+    <IF> condition() (statement())+ (elifClause())? (elseClause())? <END>
 }
 
 void condition(): {}
 {
-    (<OPNOT>)? value()  (relationalOperator() value() [logicalOperator() condition()])?
+    (<OPNOT>)? allValues() (relationalOperator() allValues() [logicalOperator() condition()])?
 }
 
 void relationalOperator(): {}
@@ -251,11 +262,16 @@ void logicalOperator(): {}
     | <OPNOT>
 }
 
+void elifClause(): {}
+{
+    <ELSIF> condition() (statement())+
+}
+
 void elseClause(): {}
 {
     <ELSE> (statement())+
-    | <ELSIF> condition() (statement())+ [elseClause()]
 }
+
 
 void forStatement(): {}
 {
@@ -275,10 +291,20 @@ void whileStatement(): {}
 
 void caseStatement(): {}
 {
-    <CASE> <IDENTIFIER> (<WHEN> value() (statement())+)+ [<ELSE> (statement())+] <END>
+    <CASE> <IDENTIFIER> (<WHEN> allValues() (statement())+)+ [<ELSE> (statement())+] <END>
 }
 
 void outputStatement(): {}
 {
-    (<PUTS> | <PRINT>) <STRING>
+    (<PUTS> | <PRINT>) (<STRING> | functionCall())
+}
+
+void libraryDeclaration(): {}
+{
+    <REQUIRE> <STRING>
+}
+
+void libraryUses(): {}
+{
+    <IDENTIFIER> <DOT> functionCall()
 }
