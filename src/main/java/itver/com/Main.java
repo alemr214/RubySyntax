@@ -22,7 +22,7 @@ public class Main {
                             new FileReader(Main.file)
                     )));
             parser.parse();
-            System.out.println("Success");
+            System.out.println("Syntax finished successfully");
         }catch(ParseException e){
             System.out.println("Error: " + e.getMessage());
         }catch(FileNotFoundException e){
